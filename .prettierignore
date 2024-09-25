@@ -12,4 +12,5 @@
 .exe 
 .gif 
 .jpg 
-.png 
+.png
+*.html

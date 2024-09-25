@@ -6,10 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint ./src/**/*.{js,jsx,tsx,ts}",
     "preview": "vite preview",
     "prepare": "husky",
-    "prettier":"prettier src/**/*.{js,jsx,tsx,ts} --write"
+    "prettier": "prettier . --write"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx,jsx}": [
+      "yarn run lint",
+      "yarn run prettier"
+    ]
   },
   "engines": {
     "node": ">20.9.0"
