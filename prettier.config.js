@@ -5,10 +5,15 @@
  * @type {import("prettier").Config}
  */
 const config = {
-  trailingComma: 'es5',
-  tabWidth: 2,
+  arrowParens: 'avoid',
+  bracketSpacing: true,
+  endOfLine: 'auto',
+  jsxSingleQuote: true,
+  printWidth: 120,
   semi: false,
   singleQuote: true,
+  tabWidth: 2,
+  trailingComma: 'es5',
 }
 
 export default config
