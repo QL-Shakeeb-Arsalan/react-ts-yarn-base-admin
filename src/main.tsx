@@ -1,10 +1,19 @@
-import { StrictMode } from 'react'
+import { Suspense, startTransition } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+import { generateRoutes, IRoutes } from './utils/routes'
 import './index.css'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
+const routes: IRoutes[] = generateRoutes()
+const router = createBrowserRouter(routes)
+
+const root = document.getElementById('root')!
+
+startTransition(() => {
+  createRoot(root).render(
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  )
+})
