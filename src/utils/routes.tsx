@@ -1,8 +1,10 @@
-import { ReactNode, lazy } from 'react'
+import { ComponentType, ReactNode } from 'react'
 
 export interface IRoutes {
   path: string
-  element: ReactNode
+  element?: ReactNode
+  Component?: ComponentType
+  ErrorBoundary?: ComponentType
   children?: IRoutes[]
 }
 
@@ -46,13 +48,12 @@ export function generateNestedRoutes(routes: IRoutes[]): IRoutes[] {
 
 export function generateRoutes() {
   const pages = import.meta.glob('../pages/**/*.tsx')
+  const eager = import.meta.glob('../pages/**/*.tsx', { eager: true })
   const routes: IRoutes[] = []
   // eslint-disable-next-line sonarjs/slow-regex
   const catchRegex = /\[(.+)\]/g
 
   for (const path of Object.keys(pages)) {
-    // @ts-expect-error Argument of type A is not assignable to type B.
-    const Component = lazy(pages[path])
     let routePath = path.slice(8, -4)
     routePath = routePath.replace(catchRegex, ':$1')
 
@@ -62,8 +63,18 @@ export function generateRoutes() {
     }
 
     const route: IRoutes = {
-      element: <Component />,
+      // @ts-expect-error Object is unknown
+      Component: eager[path].default,
       path: routePath,
+      // @ts-expect-error Object is unknown
+      ...(eager[path].action ? { action: eager[path].action } : {}),
+      // @ts-expect-error Object is unknown
+      ...(eager[path].loader ? { loader: eager[path].loader } : {}),
+      // @ts-expect-error Object is unknown
+      ...(eager[path].ErrorBoundary
+        ? // @ts-expect-error Object is unknown
+          { ErrorBoundary: eager[path].ErrorBoundary }
+        : {}),
     }
 
     routes.push(route)
