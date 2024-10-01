@@ -1,11 +1,7 @@
-import { isRouteErrorResponse, Outlet, useRouteError } from 'react-router-dom'
+import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
 
-export default function BlogPage() {
-  return (
-    <>
-      <h1>Blog Page</h1> <Outlet />
-    </>
-  )
+export default function IndePage() {
+  return <h1>Index Page</h1>
 }
 
 export function ErrorBoundary() {
@@ -22,4 +18,4 @@ export function ErrorBoundary() {
 }
 
 // If you want to customize the component display name in React dev tools:
-ErrorBoundary.displayName = 'SampleErrorBoundary'
+ErrorBoundary.displayName = 'IndexErrorBoundary'
