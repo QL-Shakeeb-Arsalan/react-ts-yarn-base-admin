@@ -1,7 +1,18 @@
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom'
+import { isRouteErrorResponse, json, useLoaderData, useRouteError } from 'react-router-dom'
+
+export function loader() {
+  return json('Tanmay')
+}
 
 export default function IndePage() {
-  return <h1>Index Page</h1>
+  const loaderData = useLoaderData()
+
+  return (
+    <>
+      <h1>Index Page</h1>
+      <p>Hi {loaderData || ''}</p>
+    </>
+  )
 }
 
 export function ErrorBoundary() {
