@@ -10,18 +10,9 @@
     "lint": "eslint src/**/*.{ts,tsx}",
     "preview": "vite preview",
     "prepare": "husky",
-    "prettier": "prettier . --write",
+    "format": "prettier . --write",
     "test": "vitest",
     "test:ui": "vitest --ui"
-  },
-  "lint-staged": {
-    "**/*.{js,ts,tsx,jsx}": [
-      "yarn run lint",
-      "yarn run prettier"
-    ]
-  },
-  "engines": {
-    "node": ">20.9.0"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -53,5 +44,14 @@
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
     "vitest": "^2.1.1"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,tsx,jsx}": [
+      "yarn run lint",
+      "yarn run format"
+    ]
+  },
+  "engines": {
+    "node": ">20.9.0"
   }
 }
